@@ -15,5 +15,6 @@ The following variables are used in the build process:
 | Variable                       | Default value             | Description                                                                 |
 | ------------------------------ | ------------------------- | --------------------------------------------------------------------------- |
 | `REACT_APP_TITLE`              | `poll`                    | Application title.                                                          |
-| `REACT_APP_SERVER`             | `ws://[hostname]:5000/ws` | WebSockets server location.                                                 |
+| `REACT_APP_SERVER_WS`          | `ws://[hostname]:5000/ws` | WebSockets server location.                                                 |
+| `REACT_APP_SERVER_API`         | `http://[hostname]:5000/` | HTTP API server location.                                                   |
 | `REACT_APP_USE_BROWSER_ROUTER` | `0`                       | `1` if you want the application to use BrowserRouter instead of HashRouter. |
