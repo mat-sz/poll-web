@@ -29,3 +29,13 @@ export function removeSubscriptionAction(shortId: string): ActionModel {
     value: shortId,
   };
 }
+
+export function voteAction(shortId: string, answerId: string): ActionModel {
+  return {
+    type: ActionType.VOTE,
+    value: {
+      shortId,
+      answerId,
+    },
+  };
+}

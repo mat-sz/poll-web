@@ -69,6 +69,21 @@ function* unsubscribe(action: ActionModel) {
   yield put(removeSubscriptionAction(shortId));
 }
 
+function* vote(action: ActionModel) {
+  const answerId = action.value.answerId as string;
+  const shortId = action.value.shortId as string;
+
+  yield call(() =>
+    fetch(apiServer + 'v1/poll/' + shortId + '/vote', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ answerId }),
+    })
+  );
+}
+
 export default function* root(dispatch: (action: any) => void) {
   yield takeEvery(ActionType.WS_MESSAGE, function* (action: ActionModel) {
     // TODO: rewrite this to avoid passing dispatch
@@ -79,4 +94,6 @@ export default function* root(dispatch: (action: any) => void) {
 
   yield takeEvery(ActionType.SUBSCRIBE, subscribe);
   yield takeEvery(ActionType.UNSUBSCRIBE, unsubscribe);
+
+  yield takeEvery(ActionType.VOTE, vote);
 }
