@@ -5,6 +5,20 @@ export enum SubscriptionMode {
   UNSUBSCRIBE = 'unsubscribe',
 }
 
+export interface AnswerModel {
+  id: string;
+  text: string;
+  count: number;
+}
+
+export interface PollModel {
+  id: string;
+  title: string;
+  answerIds: string[];
+  answers?: AnswerModel[];
+  shortId?: string;
+}
+
 export interface ActionModel {
   type: string;
   value: any;
