@@ -5,6 +5,7 @@ import './App.scss';
 import { Router } from './config';
 import Status from './components/Status';
 import NewPoll from './screens/NewPoll';
+import Poll from './screens/Poll';
 
 const App: React.FC = () => {
   return (
@@ -12,6 +13,9 @@ const App: React.FC = () => {
       <div className="app">
         <Status />
         <Switch>
+          <Route path="/:shortId">
+            <Poll />
+          </Route>
           <Route path="/">
             <NewPoll />
           </Route>
