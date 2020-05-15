@@ -5,6 +5,8 @@ import {
   PingMessageModel,
   Message,
   PollModel,
+  SubscriptionRequestMessageModel,
+  SubscriptionMode,
 } from '../types/Models';
 import { ActionType } from '../types/ActionType';
 import { sendMessageAction } from '../actions/websocket';
@@ -37,6 +39,9 @@ function* message(action: ActionModel, dispatch: (action: any) => void) {
       };
       yield put(sendMessageAction(pongMessage));
       break;
+    case MessageType.SUBSCRIPTION_UPDATE:
+      yield put(replaceSubscriptionAction(msg.value));
+      break;
   }
 }
 
@@ -62,11 +67,27 @@ function* subscribe(action: ActionModel) {
       (poll.id ? poll : { shortId: shortId, title: 'Not found' }) as any
     )
   );
+
+  const subscribeMessage: SubscriptionRequestMessageModel = {
+    type: MessageType.SUBSCRIPTION_REQUEST,
+    channel: shortId,
+    mode: SubscriptionMode.SUBSCRIBE,
+  };
+
+  yield put(sendMessageAction(subscribeMessage));
 }
 
 function* unsubscribe(action: ActionModel) {
   const shortId = action.value as string;
   yield put(removeSubscriptionAction(shortId));
+
+  const unsubscribeMessage: SubscriptionRequestMessageModel = {
+    type: MessageType.SUBSCRIPTION_REQUEST,
+    channel: shortId,
+    mode: SubscriptionMode.UNSUBSCRIBE,
+  };
+
+  yield put(sendMessageAction(unsubscribeMessage));
 }
 
 function* vote(action: ActionModel) {

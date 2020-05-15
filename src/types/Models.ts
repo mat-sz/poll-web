@@ -7,6 +7,7 @@ export enum SubscriptionMode {
 
 export interface AnswerModel {
   id: string;
+  pollId: string;
   text: string;
   count: number;
 }
@@ -14,7 +15,6 @@ export interface AnswerModel {
 export interface PollModel {
   id: string;
   title: string;
-  answerIds: string[];
   answers?: AnswerModel[];
   shortId?: string;
 }
