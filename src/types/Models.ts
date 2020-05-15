@@ -57,9 +57,16 @@ export interface SubscriptionResponseMessageModel extends MessageModel {
   mode: SubscriptionMode;
 }
 
+export interface SubscriptionUpdateMessageModel extends MessageModel {
+  type: MessageType.SUBSCRIPTION_UPDATE;
+  channel: string;
+  value: any;
+}
+
 export type Message =
   | WelcomeMessageModel
   | ErrorMessageModel
   | PingMessageModel
   | SubscriptionRequestMessageModel
-  | SubscriptionResponseMessageModel;
+  | SubscriptionResponseMessageModel
+  | SubscriptionUpdateMessageModel;
