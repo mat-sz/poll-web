@@ -41,7 +41,10 @@ const NewPollAnswer: React.FC<NewPollAnswerProps> = ({
 
 const NewPoll: React.FC = () => {
   const [title, setTitle] = useState('');
-  const [answers, setAnswers] = useState<Answer[]>([]);
+  const [answers, setAnswers] = useState<Answer[]>([
+    { id: uuid(), answer: '' },
+    { id: uuid(), answer: '' },
+  ]);
   const history = useHistory();
 
   const updateTitle = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -71,10 +74,11 @@ const NewPoll: React.FC = () => {
     <section>
       <h2>New poll</h2>
       <div className="newPoll">
+        <h3>Title</h3>
         <label>
-          Title:
           <input type="text" onChange={updateTitle} value={title} />
         </label>
+        <h3>Answers</h3>
         <div className="answers">
           {answers.map((answer, index) => (
             <NewPollAnswer
@@ -84,9 +88,9 @@ const NewPoll: React.FC = () => {
               key={answer.id}
             />
           ))}
-          <button onClick={addAnswer}>Add answer</button>
         </div>
         <div className="actions">
+          <button onClick={addAnswer}>Add answer</button>
           <button onClick={createPoll}>Create poll</button>
         </div>
       </div>
