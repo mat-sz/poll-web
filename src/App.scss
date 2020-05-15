@@ -77,5 +77,21 @@ body {
     padding: 10px;
     color: #fff;
     cursor: pointer;
+
+    &.vote {
+      position: relative;
+
+      .progress {
+        pointer-events: none;
+        display: block;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: calc(attr('data-progress') * 100%);
+        background: rgba(0, 0, 0, 0.2);
+      }
+    }
   }
 }

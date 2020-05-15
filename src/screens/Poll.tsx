@@ -8,16 +8,27 @@ import { AnswerModel } from '../types/Models';
 interface PollAnswerProps {
   shortId: string;
   answer: AnswerModel;
+  totalVotes: number;
 }
 
-const PollAnswer: React.FC<PollAnswerProps> = ({ shortId, answer }) => {
+const PollAnswer: React.FC<PollAnswerProps> = ({
+  shortId,
+  answer,
+  totalVotes,
+}) => {
   const dispatch = useDispatch();
   const vote = () => dispatch(voteAction(shortId, answer.id));
 
   return (
     <div>
-      <button onClick={vote}>
+      <button className="vote" onClick={vote}>
         {answer.text} ({answer.count})
+        <div
+          className="progress"
+          style={{
+            width: (totalVotes > 0 ? answer.count / totalVotes : 0) * 100 + '%',
+          }}
+        ></div>
       </button>
     </div>
   );
@@ -31,6 +42,9 @@ const Poll: React.FC = () => {
   const { shortId } = useParams<{ shortId: string }>();
 
   const poll = subscribedPolls[shortId];
+  const totalVotes =
+    poll?.answers?.reduce((previous, current) => previous + current.count, 0) ||
+    0;
 
   useEffect(() => {
     if (!(shortId in subscribedPolls)) {
@@ -43,7 +57,12 @@ const Poll: React.FC = () => {
       <h2>{poll ? poll.title : 'Loading...'}</h2>
       {poll
         ? poll.answers?.map(answer => (
-            <PollAnswer shortId={shortId} answer={answer} key={answer.id} />
+            <PollAnswer
+              shortId={shortId}
+              answer={answer}
+              key={answer.id}
+              totalVotes={totalVotes}
+            />
           ))
         : null}
     </section>
