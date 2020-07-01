@@ -23,6 +23,11 @@ body {
   right: 0;
   bottom: 0;
 
+  a {
+    text-decoration: none;
+    outline: none;
+  }
+
   h1 {
     margin: 0;
     text-align: center;
